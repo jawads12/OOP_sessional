@@ -1,0 +1,162 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class User{
+    string gmail, password, name;
+    int balance;
+public:
+    string getGmail()
+    {
+        return gmail;
+    }
+    string getPassword()
+    {
+        return password;
+
+    }
+    string getName()
+    {
+        return name;
+
+    }
+    int getBalance()
+    {
+        return balance;
+    }
+    void setGmail(string x)
+    {
+        gmail = x;
+    }
+    void setPassword(string x)
+    {
+
+        password = x;
+    }
+    void setName(string x)
+    {
+        name = x;
+    }
+    void setBalance(int x)
+    {
+       balance = x;
+    }
+
+
+};
+
+class Transaction{
+    string sender, receiver;
+    int prevBalance, amount;
+public:
+
+    string getSender(){
+    return sender;
+    }
+
+    string getReceiver(){
+    return receiver;
+    }
+
+    int getPrevBalance(){
+    return prevBalance;
+    }
+    int getAmount()
+    {
+        return amount;
+    }
+    void setSender(string x)
+    {
+        sender = x;
+    }
+
+
+    void setReceiver(string x)
+    {
+        receiver = x;
+    }
+    void setPrevBalance(int x)
+    {
+        prevBalance = x;
+    }
+    void setAmount(int x)
+    {
+        amount = x;
+    }
+
+
+
+};
+
+User users[100];
+Transaction trans[5000];
+int indexUser = 0;
+int indextransaction = 0;
+bool status = false;
+string currentUser = "";
+
+
+
+
+int main ()
+{
+    int choice;
+    while(1)
+    {
+        cin>>choice;
+        if(choice==1)
+        {
+            if(status){
+                cout<<"Someone is logged in...please wait"<<endl;
+                continue;
+            }
+            string gmail, pass, name;
+            cin>>gmail>>pass>>name;
+            User u;
+            u.setGmail(gmail);
+            u.setPassword(pass);
+            u.setName(name);
+            u.setBalance(500);
+            users[indexUser++] = u;
+
+        }
+        else if(choice==2)
+        {
+            string gmail, pass;
+            cin>>gmail>>pass;
+
+
+        }
+        else if(choice==3)
+        {
+
+
+        }
+        else if(choice==4)
+        {
+            string newPass;
+            cin>>newPass;
+
+        }
+        else if(choice==5)
+        {
+            string receiverGmail;
+            int amount;
+            cin>>receiverGmail>>amount;
+
+        }
+        else if(choice==6)
+        {
+
+        }
+        else if(choice==7)
+        {
+
+        }
+        else if(choice==8)
+        {
+
+        }
+    }
+    return 0;
+}
