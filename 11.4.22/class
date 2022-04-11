@@ -1,0 +1,59 @@
+#include <iostream>
+using namespace std;
+
+class A{
+public :
+    int i ;
+    double d;
+private :
+    int x;
+
+};
+
+
+
+int main ()
+{
+    A ob;
+    ob.i = 5;
+    cout<<ob.i;
+    return 0;
+}
+
+
+//access specifier
+/*
+1.private (default)
+2. protected
+3. public
+
+          **private**
+    only member functions can access the variables
+    **protected**
+    (inheritance er somoy dkhbo)
+    **public**
+any one from any where can access
+how to define  access specifier??
+mode_name :
+format example :
+[public :
+List of variables/functions
+private :
+list of variables/fucntions
+public:
+... ...
+private :
+......
+
+]
+
+
+
+
+
+
+
+*/
+
+
+
