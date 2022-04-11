@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#define nl endl
 using namespace std;
 
 class User{
@@ -118,17 +119,41 @@ int main ()
             u.setName(name);
             u.setBalance(500);
             users[indexUser++] = u;
+            cout<<"Account created successfully"<<endl;
 
         }
         else if(choice==2)
         {
+            if(status){
+                cout<<"Someone is logged in...please wait"<<endl;
+                continue;
+            }
             string gmail, pass;
             cin>>gmail>>pass;
+            for(int i=0;i<indexUser;i++)
+            {
+                if((users[i].getGmail().compare(gmail)==0)&&(users[i].getPassword().compare(pass)==0)){
+                    status = true;
+                    currentUser = gmail;
+                    break;
+                }
+            }
+            if(status==false){
+                cout<<"Login failed"<<nl;
+
+            }
 
 
         }
         else if(choice==3)
         {
+            if(!status) {
+                cout<<"No one is logged in"<<nl;
+                continue;
+
+            }
+            status = false;
+            currentUser = "";
 
 
         }
