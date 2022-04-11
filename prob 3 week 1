@@ -1,0 +1,65 @@
+#include <bits/stdc++.h>
+#include <cstdlib>
+using namespace std;
+#define ll long long
+#define nl "\n"
+#define endl "\n"
+#define fast ios_base::sync_with_stdio(false); cin.tie(NULL);
+
+struct order{
+string orderID;
+string customerName;
+double orderPrice;
+void setorderID()
+{
+    for(int i =0;i<8;i++)
+    {
+        char c = rand()%26+65;
+        char d = rand()%26+97;
+        int x=rand()%2;
+        if(x==0) orderID+=c;
+        else orderID+=d;
+    }
+
+}
+
+void setCustomerName(string x)
+{
+    customerName = x;
+
+}
+
+void setorderPrice(double y)
+{
+    orderPrice = y;
+
+}
+void print()
+{
+    cout<<"orderID"<<" : "<<orderID<<nl;
+    cout<<"Customer Name "<<" : "<<customerName<<nl;
+    cout<<"Price"<<" : "<<orderPrice<<"Tk"<<nl;
+
+}
+
+};
+
+int main ()
+{
+    fast
+    srand((unsigned int)time(NULL));
+
+    order a;
+    string x;
+    double y;
+    cin>>x>>y;
+    a.setorderID();
+    a.setCustomerName(x);
+    a.setorderPrice(y);
+    a.print();
+
+    return 0;
+}
+
+//Md. Jawadur Rahman
+//202114049
