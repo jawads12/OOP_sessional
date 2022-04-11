@@ -2,11 +2,30 @@
 using namespace std;
 
 class A{
+    int d;
+public:
+    void setD()
+    {
+        if(x==0) cout<<"Invalid Input";
+        else 
+        d = x;
+    }
+    int getD(){
+    return d;
+    }
+    
+    
 public :
     int i ;
     double d;
 private :
     int x;
+    
+    
+    
+    
+    
+    
 
 };
 
@@ -16,7 +35,13 @@ int main ()
 {
     A ob;
     ob.i = 5;
-    cout<<ob.i;
+    
+    
+   // cout<<ob.i;
+    setD(5);
+    
+    cout<<getD();
+    
     return 0;
 }
 
