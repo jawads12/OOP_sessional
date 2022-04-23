@@ -1,0 +1,262 @@
+#include <iostream>
+#include <string>
+#define nl endl
+using namespace std;
+
+class User{
+    string gmail, password, name;
+    int balance;
+public:
+    string getGmail()
+    {
+        return gmail;
+    }
+    string getPassword()
+    {
+        return password;
+
+    }
+    string getName()
+    {
+        return name;
+
+    }
+    int getBalance()
+    {
+        return balance;
+    }
+    void setGmail(string x)
+    {
+        gmail = x;
+    }
+    void setPassword(string x)
+    {
+
+        password = x;
+    }
+    void setName(string x)
+    {
+        name = x;
+    }
+    void setBalance(int x)
+    {
+       balance = x;
+    }
+
+
+};
+
+class Transaction{
+    string sender, receiver;
+    int prevBalance, amount;
+public:
+
+    string getSender(){
+    return sender;
+    }
+
+    string getReceiver(){
+    return receiver;
+    }
+
+    int getPrevBalance(){
+    return prevBalance;
+    }
+    int getAmount()
+    {
+        return amount;
+    }
+    void setSender(string x)
+    {
+        sender = x;
+    }
+
+
+    void setReceiver(string x)
+    {
+        receiver = x;
+    }
+    void setPrevBalance(int x)
+    {
+        prevBalance = x;
+    }
+    void setAmount(int x)
+    {
+        amount = x;
+    }
+
+
+
+};
+
+User users[100];
+Transaction trans[5000];
+int indexUser = 0;
+int indextransaction = 0;
+bool status = false;
+string currentUser = "";
+int currentUSerindex = -1;
+
+
+
+
+int main ()
+{
+
+
+    int choice;
+    while(1)
+    {
+
+    cout<<"1. Create a new account"<<endl;
+    cout<<"2. Signing in"<<endl;
+    cout<<"3. Sign out"<<endl;
+    cout<<"4. Resetting pass"<<endl;
+    cout<<"5. Send Money"<<endl;
+    cout<<"6. View transactions"<<endl;
+    cout<<"7. View customers"<<endl;
+    cout<<"8. exit"<<endl;
+        cin>>choice;
+        if(choice==1)
+        {
+            if(status){
+                cout<<"Someone is logged in...please wait"<<endl;
+                continue;
+            }
+            string gmail, pass, name;
+            cin>>gmail>>pass>>name;
+
+            User u;
+            u.setGmail(gmail);
+            u.setPassword(pass);
+            u.setName(name);
+            u.setBalance(500);
+            users[indexUser++] = u;
+            cout<<"Account created successfully"<<endl;
+
+        }
+        else if(choice==2)
+        {
+            if(status){
+                cout<<"Someone is logged in...please wait"<<endl;
+                continue;
+            }
+            string gmail, pass;
+            cin>>gmail>>pass;
+            for(int i=0;i<indexUser;i++)
+            {
+                if((users[i].getGmail().compare(gmail)==0)&&(users[i].getPassword().compare(pass)==0)){
+                    status = true;
+                    currentUser = gmail;
+                    currentUSerindex = i;
+                    cout<<"Logged in to "<<users[i].getGmail()<<endl;
+                    break;
+                }
+            }
+            if(status==false){
+                cout<<"Login failed"<<nl;
+
+            }
+
+
+        }
+        else if(choice==3)
+        {
+            if(!status) {
+                cout<<"No one is logged in"<<nl;
+                continue;
+
+            }
+            status = false;
+            currentUser = "";
+            currentUSerindex = -1;
+            cout<<"Logged out"<<endl;
+
+
+        }
+        else if(choice==4)
+        {
+            if(!status){ cout<<"No one is logged in"<<endl; continue; }
+
+            string newPass;
+            cin>>newPass;
+
+            users[currentUSerindex].setPassword(newPass);
+            cout<<"New pass set"<<endl;
+
+        }
+        else if(choice==5)
+        {
+            if(!status){ cout<<"No one is logged in"<<endl; continue; }
+
+            string receiverGmail;
+            int amount;
+            cin>>receiverGmail>>amount;
+
+            if(receiverGmail!=currentUser&&amount<=users[currentUSerindex].getBalance()){
+                for(int i =0;i<indexUser;i++)
+                {
+                    if(users[i].getGmail().compare(receiverGmail)==0){
+                        users[i].setBalance(users[i].getBalance()+amount);
+                        users[currentUSerindex].setBalance(users[currentUSerindex].getBalance()-amount);
+                        Transaction t;
+                        t.setSender(users[currentUSerindex].getName());
+                        t.setReceiver(users[i].getName());
+                        t.setPrevBalance(users[currentUSerindex].getBalance()+amount);
+                        t.setAmount(amount);
+
+                        trans[indextransaction++] = t;
+
+                        cout<<"Transaction is successful"<<endl;
+
+
+                    }
+                }
+
+            }
+
+
+        }
+        else if(choice==6)
+        {
+            for(int i =0;i<indextransaction;i++)
+            {
+                cout<<"Account Holder : "<<users[currentUSerindex].getName()<<endl;
+                cout<<"Transaction : "<<i+1<<endl;
+                cout<<"Sender : "<<trans[i].getSender()<<endl;
+                cout<<"Receiver :"<<trans[i].getReceiver()<<endl;
+                cout<<"Amount :"<<trans[i].getAmount()<<endl;
+                if(trans[i].getSender()==users[currentUSerindex].getName()) {
+                    cout<<"Current Balance :"<<trans[i].getPrevBalance()-trans[i].getAmount()<<endl;
+                }
+                else cout<<"Current Balance :"<<trans[i].getPrevBalance()+trans[i].getAmount()<<endl;
+
+
+            }
+
+        }
+        else if(choice==7)
+        {
+
+            for(int i =0;i<indexUser;i++)
+            {
+                cout <<"User : "<<i+1<<endl;
+                cout<<"Email : "<<users[i].getGmail()<<endl;
+                cout<<"Name :"<<users[i].getName()<<endl;
+                cout<<"Balance :"<<users[i].getBalance()<<endl;
+                cout<<endl<<endl;
+
+
+
+            }
+
+
+        }
+        else if(choice==8)
+        {
+            break;
+
+        }
+    }
+    return 0;
+}
